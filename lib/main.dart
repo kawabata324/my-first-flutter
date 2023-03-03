@@ -52,8 +52,10 @@ class MyHomePage extends StatelessWidget {
     // buildメソッドは ウィジェットまたは、ウィジェットにネストされたツリーを返す必要がある
     // Scaffoldはトップレベルのウィジェット
     return Scaffold(
+    
       // Columnは レイアウトウィジェットの一つ　列は視覚的にその子を一番上に配置する
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Text ウィジェット
           Text('A random AWESOME idea:'),

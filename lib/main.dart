@@ -31,6 +31,13 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier {
   // ランダムな単語のペアを持つ変数 current
   var current = WordPair.random();
+
+  // getter関数を定義してみる
+  void getNext() {
+    current = WordPair.random();
+    // 監視している全ての人に通知されるように notifyListeners methodも読んでおく
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatelessWidget {
@@ -53,7 +60,7 @@ class MyHomePage extends StatelessWidget {
           
           // 末尾に, を多用しているが　必要ないものもまああったほうがいい
           ElevatedButton(onPressed: (){
-            print('button press');
+            appState.getNext();
           },
           child: Text('Next'),
           )

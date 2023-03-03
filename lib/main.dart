@@ -84,13 +84,15 @@ class BigCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // 現在のthemeをリクエストする
     var theme = Theme.of(context);
-    
+
     var style = theme.textTheme.displayMedium!.copyWith(
       color: theme.colorScheme.onPrimary,
+      fontWeight: FontWeight.w600
     );
     // card widgetでwrapする
     return Card(
-      color: theme.colorScheme.primary,
+      elevation: 10,
+      color: theme.colorScheme.secondary,
       // padding widgetでwrapする
       child: Padding(
         padding: const EdgeInsets.all(20),

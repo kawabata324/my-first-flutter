@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
+          // アプリ全体で使用する色
           colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(0, 255, 0, 1.0)),
         ),
         home: MyHomePage(),
@@ -83,14 +84,17 @@ class BigCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // 現在のthemeをリクエストする
     var theme = Theme.of(context);
-
+    
+    var style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.onPrimary,
+    );
     // card widgetでwrapする
     return Card(
       color: theme.colorScheme.primary,
       // padding widgetでwrapする
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Text(pair.asLowerCase),
+        child: Text(pair.asLowerCase, style: style,),
       ),
     );
   }

@@ -46,6 +46,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // watcgを用いて、現在のアプリの変更を追跡する
     var appState = context.watch<MyAppState>();
+    var pair = appState.current;
 
     // buildメソッドは ウィジェットまたは、ウィジェットにネストされたツリーを返す必要がある
     // Scaffoldはトップレベルのウィジェット
@@ -56,7 +57,7 @@ class MyHomePage extends StatelessWidget {
           // Text ウィジェット
           Text('A random AWESOME idea:'),
           // appStateのcurrentにアクセスしている
-          Text(appState.current.asSnakeCase),
+          Text(pair.asLowerCase),
           
           // 末尾に, を多用しているが　必要ないものもまああったほうがいい
           ElevatedButton(onPressed: (){

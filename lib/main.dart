@@ -96,7 +96,7 @@ class BigCard extends StatelessWidget {
       // padding widgetでwrapする
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Text(pair.asLowerCase, style: style,),
+        child: Text(pair.asPascalCase, style: style,),
       ),
     );
   }

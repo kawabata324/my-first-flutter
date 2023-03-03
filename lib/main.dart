@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(0, 255, 0, 1.0)),
         ),
         home: MyHomePage(),
       ),
@@ -81,6 +81,7 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 現在のthemeをリクエストする
     var theme = Theme.of(context);
 
     // card widgetでwrapする

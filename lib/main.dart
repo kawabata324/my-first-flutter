@@ -2,10 +2,12 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// MyApp 関数を実行する
 void main() {
   runApp(MyApp());
 }
 
+// StatelessWidget classによって拡張される
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -25,24 +27,34 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// 状態を定義する ChangeNotifier classを継承する
 class MyAppState extends ChangeNotifier {
+  // ランダムな単語のペアを持つ変数 current
   var current = WordPair.random();
 }
 
 class MyHomePage extends StatelessWidget {
   @override
+  // ウィジェットが最新の状態になるように更新する
   Widget build(BuildContext context) {
+    // watcgを用いて、現在のアプリの変更を追跡する
     var appState = context.watch<MyAppState>();
 
+    // buildメソッドは ウィジェットまたは、ウィジェットにネストされたツリーを返す必要がある
+    // Scaffoldはトップレベルのウィジェット
     return Scaffold(
+      // Columnは レイアウトウィジェットの一つ　列は視覚的にその子を一番上に配置する
       body: Column(
         children: [
+          // Text ウィジェット
           Text('A random AWESOME idea:'),
-          Text(appState.current.asLowerCase),
+          // appStateのcurrentにアクセスしている
+          Text(appState.current.asSnakeCase),
           
+          // 末尾に, を多用しているが　必要ないものもまああったほうがいい
           ElevatedButton(onPressed: (){
             print('button press');
-          }, 
+          },
           child: Text('Next'),
           )
         ],

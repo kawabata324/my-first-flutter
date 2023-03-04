@@ -58,11 +58,9 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Text ウィジェット
-            Text('A random AWESOME idea:'),
             // appStateのcurrentにアクセスしている
             BigCard(pair: pair),
-            
+            SizedBox(height: 10),
             // 末尾に, を多用しているが　必要ないものもまああったほうがいい
             ElevatedButton(onPressed: (){
               appState.getNext();

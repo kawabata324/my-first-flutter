@@ -70,8 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = GeneratorPage();
         break;
       case 1:
-        // 未完成部分を表すのに必要なオブジェクト Placeholder
-        page = Placeholder();
+        page = FavoriteWordPage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
@@ -167,6 +166,39 @@ class GeneratorPage extends StatelessWidget {
                 ),
               ],
             )
+          ],
+        ),
+      );
+  }
+}
+
+
+class FavoriteWordPage extends StatelessWidget {
+  @override
+  // ウィジェットが最新の状態になるように更新する
+  Widget build(BuildContext context) {
+    // watcgを用いて、現在のアプリの変更を追跡する
+    var appState = context.watch<MyAppState>();
+    var favorites = appState.favotites;
+    
+      if(appState.favotites.isEmpty){
+        return Center(
+          child: Text('No favorite yet'),
+        );
+      }
+      // Columnは レイアウトウィジェットの一つ　列は視覚的にその子を一番上に配置する
+      return Center(
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(50),
+              child: Text('Your Favorite ${appState.favotites.length} Words'),
+            ),
+            for( var favorite in favorites)
+              ListTile(
+                leading: Icon(Icons.favorite),
+                title: Text(favorite.asPascalCase)
+                ),
           ],
         ),
       );

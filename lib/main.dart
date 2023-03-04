@@ -53,14 +53,24 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  var selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // 水平方向に配置する safeArea Expanded
       body: Row(
         children: [
+          // その子の要素が、status barなどで隠れることを防ぐ
           SafeArea(
             child: NavigationRail(
+              // trueにするとlabelがアイコン横に表示される
               extended: false,
               destinations: [
                 NavigationRailDestination(
@@ -72,12 +82,16 @@ class MyHomePage extends StatelessWidget {
                   label: Text('Favorites'),
                 ),
               ],
-              selectedIndex: 0,
+              selectedIndex: selectedIndex,
+              // navigation railが一つを選択したときに走る
               onDestinationSelected: (value) {
-                print('selected: $value');
+                setState(() {
+                  selectedIndex = value;
+                });
               },
             ),
           ),
+          // expandedを指定することで残り全部のスペースを覆い尽くす
           Expanded(
             child: Container(
               color: Theme.of(context).colorScheme.primaryContainer,

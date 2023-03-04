@@ -54,21 +54,23 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
     
       // Columnは レイアウトウィジェットの一つ　列は視覚的にその子を一番上に配置する
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Text ウィジェット
-          Text('A random AWESOME idea:'),
-          // appStateのcurrentにアクセスしている
-          BigCard(pair: pair),
-          
-          // 末尾に, を多用しているが　必要ないものもまああったほうがいい
-          ElevatedButton(onPressed: (){
-            appState.getNext();
-          },
-          child: Text('Next'),
-          )
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Text ウィジェット
+            Text('A random AWESOME idea:'),
+            // appStateのcurrentにアクセスしている
+            BigCard(pair: pair),
+            
+            // 末尾に, を多用しているが　必要ないものもまああったほうがいい
+            ElevatedButton(onPressed: (){
+              appState.getNext();
+            },
+            child: Text('Next'),
+            )
+          ],
+        ),
       ),
     );
   }

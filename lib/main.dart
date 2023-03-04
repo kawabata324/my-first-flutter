@@ -61,6 +61,12 @@ class MyHomePage extends StatelessWidget {
     var appState = context.watch<MyAppState>();
     var pair = appState.current;
 
+    IconData icon;
+    if(appState.favotites.contains(pair)){
+      icon = Icons.favorite;
+    }else{
+      icon = Icons.favorite_border;
+    }
     // buildメソッドは ウィジェットまたは、ウィジェットにネストされたツリーを返す必要がある
     // Scaffoldはトップレベルのウィジェット
     return Scaffold(
@@ -77,11 +83,14 @@ class MyHomePage extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ElevatedButton(onPressed: (){
+                ElevatedButton.icon(onPressed: (){
                   appState.toggleFavorite();
-                }, 
-                child: Text('Like') 
+                },
+                icon: Icon(icon), 
+                label: Text('Like') 
                 ),
+                SizedBox(width: 10,),
+                
                 ElevatedButton(onPressed: (){
                   appState.getNext();
                 },

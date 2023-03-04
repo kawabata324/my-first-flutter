@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
           // アプリ全体で使用する色
-          colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(0, 255, 0, 1.0)),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
         ),
         home: MyHomePage(),
       ),
@@ -55,6 +55,44 @@ class MyAppState extends ChangeNotifier {
 
 class MyHomePage extends StatelessWidget {
   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: [
+          SafeArea(
+            child: NavigationRail(
+              extended: false,
+              destinations: [
+                NavigationRailDestination(
+                  icon: Icon(Icons.home),
+                  label: Text('Home'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.favorite),
+                  label: Text('Favorites'),
+                ),
+              ],
+              selectedIndex: 0,
+              onDestinationSelected: (value) {
+                print('selected: $value');
+              },
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              child: GeneratorPage(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+class GeneratorPage extends StatelessWidget {
+  @override
   // ウィジェットが最新の状態になるように更新する
   Widget build(BuildContext context) {
     // watcgを用いて、現在のアプリの変更を追跡する
@@ -69,10 +107,9 @@ class MyHomePage extends StatelessWidget {
     }
     // buildメソッドは ウィジェットまたは、ウィジェットにネストされたツリーを返す必要がある
     // Scaffoldはトップレベルのウィジェット
-    return Scaffold(
     
       // Columnは レイアウトウィジェットの一つ　列は視覚的にその子を一番上に配置する
-      body: Center(
+      return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -90,7 +127,7 @@ class MyHomePage extends StatelessWidget {
                 label: Text('Like') 
                 ),
                 SizedBox(width: 10,),
-                
+
                 ElevatedButton(onPressed: (){
                   appState.getNext();
                 },
@@ -100,8 +137,7 @@ class MyHomePage extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
+      );
   }
 }
 

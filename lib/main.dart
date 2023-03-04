@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 // MyApp 関数を実行する
@@ -76,43 +77,47 @@ class _MyHomePageState extends State<MyHomePage> {
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
-    return Scaffold(
-      // 水平方向に配置する safeArea Expanded
-      body: Row(
-        children: [
-          // その子の要素が、status barなどで隠れることを防ぐ
-          SafeArea(
-            child: NavigationRail(
-              // trueにするとlabelがアイコン横に表示される
-              extended: false,
-              destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Scaffold(
+          // 水平方向に配置する safeArea Expanded
+          body: Row(
+            children: [
+              // その子の要素が、status barなどで隠れることを防ぐ
+              SafeArea(
+                child: NavigationRail(
+                  // trueにするとlabelがアイコン横に表示される
+                  extended: constraints.maxWidth >= 600,
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: Icon(Icons.home),
+                      label: Text('Home'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.favorite),
+                      label: Text('Favorites'),
+                    ),
+                  ],
+                  selectedIndex: selectedIndex,
+                  // navigation railが一つを選択したときに走る
+                  onDestinationSelected: (value) {
+                    setState(() {
+                      selectedIndex = value;
+                    });
+                  },
                 ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.favorite),
-                  label: Text('Favorites'),
+              ),
+              // expandedを指定することで残り全部のスペースを覆い尽くす
+              Expanded(
+                child: Container(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  child: page
                 ),
-              ],
-              selectedIndex: selectedIndex,
-              // navigation railが一つを選択したときに走る
-              onDestinationSelected: (value) {
-                setState(() {
-                  selectedIndex = value;
-                });
-              },
-            ),
+              ),
+            ],
           ),
-          // expandedを指定することで残り全部のスペースを覆い尽くす
-          Expanded(
-            child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: page
-            ),
-          ),
-        ],
-      ),
+        );
+      }
     );
   }
 }

@@ -32,11 +32,23 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier {
   // ランダムな単語のペアを持つ変数 current
   var current = WordPair.random();
+  // お気に入り単語をListで保存する
+  var favotites = <WordPair>[];
 
   // getter関数を定義してみる
   void getNext() {
     current = WordPair.random();
     // 監視している全ての人に通知されるように notifyListeners methodも読んでおく
+    notifyListeners();
+  }
+
+  // お気に入りに追加する or 削除する
+  void toggleFavorite(){
+    if(favotites.contains(current)){
+      favotites.remove(current);
+    }else{
+      favotites.add(current);
+    }
     notifyListeners();
   }
 }
@@ -62,10 +74,20 @@ class MyHomePage extends StatelessWidget {
             BigCard(pair: pair),
             SizedBox(height: 10),
             // 末尾に, を多用しているが　必要ないものもまああったほうがいい
-            ElevatedButton(onPressed: (){
-              appState.getNext();
-            },
-            child: Text('Next'),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton(onPressed: (){
+                  appState.toggleFavorite();
+                }, 
+                child: Text('Like') 
+                ),
+                ElevatedButton(onPressed: (){
+                  appState.getNext();
+                },
+                child: Text('Next'),
+                ),
+              ],
             )
           ],
         ),
